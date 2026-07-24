@@ -48,7 +48,7 @@ NAVIGATION
 .hero__bg--img {
   position: absolute;
   inset: 0;
-  background-image: url("./assest/Watch-Free-Hero-2048x1152-1.webp");
+  background-image: url("../src/assets/movie.bg.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
