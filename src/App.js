@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import SearchPage from "./pages/SearchPage";
 import "./App.css";
 
+
 function App() {
   return (
     <Router>

@@ -2,6 +2,8 @@ import React from "react";
 import logo from "../assets/logo.png";
 import building from "../assets/building.png";
 import { Link } from "react-router-dom";
+import "./SearchPage.css";
+
 
 const SearchPage = () => {
   return (
@@ -11,11 +13,11 @@ const SearchPage = () => {
 
         <header className="nav__bar container">
           <div className="nav__bar--wrapper">
-            <a href="#" className="img__logo--wrapper">
+            <a href="/" className="img__logo--wrapper">
               <img src={logo} className="img__logo" alt="Blinker logo" />
             </a>
             <div className="nav__link--list">
-              <Link to="#" className="nav__link">
+              <Link to="/" className="nav__link">
                 Home
               </Link>
               <Link to="/search" className="nav__link">
