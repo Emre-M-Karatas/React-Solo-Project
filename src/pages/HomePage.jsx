@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import building from "../assets/building.png";
-import "../App.css";
 
 const HomePage = () => {
   return (

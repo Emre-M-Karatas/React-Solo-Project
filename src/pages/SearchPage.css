@@ -1,10 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
+* {
+  box-sizing: border-box;
+  font-family: roboto;
+}
 
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: #6030b1;
+}
 
+.purple {
+  color: rgb(96, 48, 177);
+}
 
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
 
-
+body {
+  scroll-behavior: smooth;
+  margin: 0;
+}
 
 
 
@@ -42,7 +62,15 @@ NAVIGATION
   z-index: 1;
 }
 
-
+.nav__bar {
+  width: 100%;
+  height: 165px;
+  padding: 0 50px;
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
 
 .img__logo {
   width: 150px;
@@ -50,8 +78,27 @@ NAVIGATION
   filter: invert(1) brightness(50);
 }
 
+.nav__bar--wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
 
-
+.nav__link--btn {
+  cursor: pointer;
+  max-height: 50px;
+  border: none;
+  border-radius: 50px;
+  font-size: 20px;
+  color: #fff;
+  background-color: #6030b1;
+  padding: 12px 40px;
+  letter-spacing: 1px;
+  align-items: center;
+  transition: all 400ms ease;
+}
 
 .nav__link--btn:hover {
   background-color: #9456ff;
@@ -67,8 +114,25 @@ NAVIGATION
   color: #fff;
 }
 
+.nav__link::after {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: currentColor;
+  border-radius: 2px;
 
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 300ms ease;
+}
 
+.nav__link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
 
 /* 
 
