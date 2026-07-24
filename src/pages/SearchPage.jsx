@@ -2,9 +2,7 @@ import React from 'react'
 
 const SearchPage = () => {
   return (
-    <div>
-      
-    </div>
+    <h1>Search page</h1>
   )
 }
 
