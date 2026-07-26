@@ -8,13 +8,35 @@ const SearchPage = () => {
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [sortOption, setSortOption] = useState("");
   const [searchParams] = useSearchParams();
 
-  const moviesPerPage = 8;
-  const startIndex = (currentPage - 1) * moviesPerPage;
-  const endIndex = startIndex + moviesPerPage;
-  const currentMovies = movies.slice(startIndex, endIndex);
-  const totalPages = Math.ceil(movies.length / moviesPerPage);
+const moviesPerPage = 8;
+const startIndex = (currentPage - 1) * moviesPerPage;
+const endIndex = startIndex + moviesPerPage;
+
+const sortedMovies = [...movies].sort((a, b) => {
+  if (sortOption === "A_to_Z") {
+    return a.Title.localeCompare(b.Title);
+  }
+
+  if (sortOption === "Z_to_A") {
+    return b.Title.localeCompare(a.Title);
+  }
+
+  if (sortOption === "Oldest_to_Newest") {
+    return Number(a.Year) - Number(b.Year);
+  }
+
+  if (sortOption === "Newest_to_Oldest") {
+    return Number(b.Year) - Number(a.Year);
+  }
+
+  return 0;
+});
+
+const currentMovies = sortedMovies.slice(startIndex, endIndex);
+const totalPages = Math.ceil(sortedMovies.length / moviesPerPage);
 
   const searchMovies = async (term = searchTerm) => {
     if (!term.trim()) return;
@@ -127,7 +149,14 @@ const SearchPage = () => {
             </button>
           </div>
         </div>
-        <select id="filter" defaultValue="">
+        <select
+          id="filter"
+          value={sortOption}
+          onChange={(event) => {
+            setSortOption(event.target.value);
+            setCurrentPage(1);
+          }}
+        >
           <option value="" disabled>
             Sort
           </option>
