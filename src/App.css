@@ -22,6 +22,7 @@ a {
 }
 
 body {
+  margin: 0;
   scroll-behavior: smooth;
 }
 
@@ -171,21 +172,18 @@ LANDING PAGE
 .input__btn {
   position: relative;
   background-color: #6030b1;
-  width: 200px;
+  width: 100px;
+  height: 70px;
   margin-left: 20px;
-  font-size: 40px;
   color: #fff;
   border-radius: 20px;
-  transition: all 0.25s ease;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition:
-    background-color 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+  transition: background-color 0.25s ease;
+  flex-shrink: 0;
 }
 
 .input__btn:hover {
@@ -217,6 +215,10 @@ LANDING PAGE
 .icon-spinner {
   transition: opacity 0.3s ease;
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
 }
 
 

@@ -1,18 +1,34 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import building from "../assets/building.png";
 
 const HomePage = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleHomeSearch = (event) => {
+  event.preventDefault();
+
+  if (!searchTerm.trim()) return;
+
+  setIsLoading(true);
+
+  setTimeout(() => {
+    navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+  }, 200);
+};
+
   return (
     <>
       <header className="nav__bar">
         <div className="nav__bar--wrapper container">
-          <a href="#" className="img__logo--wrapper">
+          <a href="/" className="img__logo--wrapper">
             <img src={logo} className="img__logo" alt="Blinker logo" />
           </a>
           <div className="nav__link--list">
-            <Link to="#" className="nav__link">
+            <Link to="/" className="nav__link">
               Home
             </Link>
             <Link to="/search" className="nav__link">
@@ -32,17 +48,25 @@ const HomePage = () => {
             <span className="purple">Blinker</span>
           </h3>
         </div>
-        <div className="input__wrapper container fade-up">
+        <form
+          className="input__wrapper container fade-up"
+          onSubmit={handleHomeSearch}
+        >
           <input
             type="text"
             placeholder="Search by Name"
             className="search__bar"
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
           />
-          <button className="input__btn">
+          <button
+            type="submit"
+            className={`input__btn ${isLoading ? "loading" : ""}`}
+          >
             <i className="fa-solid fa-magnifying-glass icon-search"></i>
             <i className="fa-solid fa-spinner icon-spinner"></i>
           </button>
-        </div>
+        </form>
         <div className="img__wrapper">
           <img src={building} className="landing__page--img" alt="" />
         </div>

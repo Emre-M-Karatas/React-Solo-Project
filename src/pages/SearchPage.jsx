@@ -1,11 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/logo.png";
-import building from "../assets/building.png";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import "./SearchPage.css";
 
-
 const SearchPage = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [movies, setMovies] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchParams] = useSearchParams();
+
+  const moviesPerPage = 8;
+  const startIndex = (currentPage - 1) * moviesPerPage;
+  const endIndex = startIndex + moviesPerPage;
+  const currentMovies = movies.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(movies.length / moviesPerPage);
+
+  const searchMovies = async (term = searchTerm) => {
+    if (!term.trim()) return;
+
+    setIsLoading(true);
+
+    const response = await fetch(
+      `https://www.omdbapi.com/?apikey=64034610&s=${term}`,
+    );
+    const data = await response.json();
+
+    setMovies(data.Search || []);
+    setCurrentPage(1);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    const query = searchParams.get("query");
+
+    if (query) {
+      setSearchTerm(query);
+      searchMovies(query);
+    }
+  }, [searchParams]);
+
   return (
     <>
       <section className="hero__bg">
@@ -30,12 +64,24 @@ const SearchPage = () => {
         <section className="content__wrapper container">
           <h1 className="content__title">Browse Movies</h1>
           <div className="input__wrapper">
-            <input
-              type="text"
-              className="input__movies"
-              placeholder="Browse by Name or Year"
-            />
-            <i className="fa-solid fa-magnifying-glass"></i>
+            <form
+              className="search__form"
+              onSubmit={(event) => {
+                event.preventDefault();
+                searchMovies();
+              }}
+            >
+              <input
+                type="text"
+                className="input__movies"
+                placeholder="Browse by Name or Year"
+                value={searchTerm}
+                onChange={(event) => setSearchTerm(event.target.value)}
+              />
+              <button type="submit" className="search__icon--btn">
+                <i className="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </form>
           </div>
         </section>
       </section>
@@ -43,11 +89,33 @@ const SearchPage = () => {
       <section id="search" className="container">
         <div className="filter__content--wrapper">
           <h1 className="filter__title">
-            Search results for <span className="purple"></span>
+            Search results for <span className="purple">{searchTerm}</span>
           </h1>
+          <p className="movies__found">{movies.length} movies found</p>
+          <div className="pagination">
+            <button
+              className="pagination__btn"
+              onClick={() => setCurrentPage(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+
+            <span>
+              Page {currentPage} of {totalPages || 1}
+            </span>
+
+            <button
+              className="pagination__btn"
+              onClick={() => setCurrentPage(currentPage + 1)}
+              disabled={currentPage === totalPages || totalPages === 0}
+            >
+              Next
+            </button>
+          </div>
         </div>
-        <select id="filter">
-          <option value="" disabled selected>
+        <select id="filter" defaultValue="">
+          <option value="" disabled>
             Sort
           </option>
           <option value="A_to_Z">A to Z</option>
@@ -57,13 +125,30 @@ const SearchPage = () => {
         </select>
       </section>
 
-      <section className="loading container">
-        <i className="fa-solid fa-spinner loading__spinner"></i>
+      <section className={`loading container ${isLoading ? "active" : ""}`}>
+        <div className="loading__content">
+          <i className="fa-solid fa-spinner loading__spinner"></i>
+          <h2 className="loading__title">Loading movies...</h2>
+        </div>
       </section>
 
-      <section className="movies container">
-        <div className="movies__list"></div>
-      </section>
+      {!isLoading && (
+        <section className="movies container">
+          <div className="movies__list">
+            {currentMovies.map((movie) => (
+              <Link
+                to={`/movie/${movie.imdbID}`}
+                className="movie"
+                key={movie.imdbID}
+              >
+                <img src={movie.Poster} alt={movie.Title} />
+                <h3>{movie.Title}</h3>
+                <p>{movie.Year}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
     </>
   );
 };

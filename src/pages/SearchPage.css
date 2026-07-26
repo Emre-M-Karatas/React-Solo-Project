@@ -64,15 +64,7 @@
   width: 100%;
 }
 
-.hero__bg .fa-magnifying-glass {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 20px;
-  color: #6030b1;
-  pointer-events: none;
-}
+
 
 /* Search results area */
 #search {
@@ -81,6 +73,10 @@
   align-items: center;
   padding: 20px;
   margin-top: 10px;
+}
+
+.filter__title {
+  margin-left: 10px;
 }
 
 #filter {
@@ -127,4 +123,125 @@
 
 .movie img:hover {
   transform: scale(1.05);
+}
+
+.search__icon--btn {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search__icon--btn i {
+  font-size: 20px;
+  color: #6030b1;
+}
+
+.search__icon--btn:hover i {
+  color: #9456ff;
+  transition: all 350ms ease;
+}
+
+.movies__found {
+  margin: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0a1f44;
+  margin-top: 8px;
+}
+
+.pagination__btn {
+  background-color: #6030b1;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  margin: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+} 
+
+.pagination__btn:hover {
+  background-color: #9456ff;
+  transition: all 350ms ease;
+}
+
+.search__form {
+  position: relative;
+  width: 100%;
+}
+
+.loading__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.loading__title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #6030b1;
+  margin: 0;
+}
+
+
+
+/* 
+
+Movie Details Page
+
+*/
+
+.movie__details {
+  padding: 48px 24px 80px;
+}
+
+.movie__details--wrapper {
+  margin-top: 20px;
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.movie__poster--wrapper {
+  width: 100%;
+  max-width: 320px;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.movie__poster {
+  margin-top: 20px;
+  width: 100%;
+  display: block;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.movie__info {
+  flex: 1;
+}
+
+.movie__info--title {
+  font-size: 36px;
+  color: #0a1f44;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+.movie__info p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #222;
+  margin-bottom: 12px;
 }
