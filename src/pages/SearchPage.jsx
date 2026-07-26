@@ -34,10 +34,23 @@ const SearchPage = () => {
   useEffect(() => {
     const query = searchParams.get("query");
 
-    if (query) {
+    if (!query) return;
+
+    const fetchMoviesFromQuery = async () => {
       setSearchTerm(query);
-      searchMovies(query);
-    }
+      setIsLoading(true);
+
+      const response = await fetch(
+        `https://www.omdbapi.com/?apikey=64034610&s=${query}`,
+      );
+      const data = await response.json();
+
+      setMovies(data.Search || []);
+      setCurrentPage(1);
+      setIsLoading(false);
+    };
+
+    fetchMoviesFromQuery();
   }, [searchParams]);
 
   return (
