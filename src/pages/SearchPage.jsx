@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import logo from "../assets/logo.png";
 import { Link, useSearchParams } from "react-router-dom";
 import "./SearchPage.css";
+import Footer from "../pages/Footer";
 
 const SearchPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -76,15 +77,16 @@ const totalPages = Math.ceil(sortedMovies.length / moviesPerPage);
   }, [searchParams]);
 
   return (
-    <>
+    <div className="page">
+      <div className="page__content">
       <section className="hero__bg">
         <div className="hero__bg--img"></div>
 
         <header className="nav__bar container">
           <div className="nav__bar--wrapper">
-            <a href="/" className="img__logo--wrapper">
+            <Link to="/" className="img__logo--wrapper">
               <img src={logo} className="img__logo" alt="Blinker logo" />
-            </a>
+            </Link>
             <div className="nav__link--list">
               <Link to="/" className="nav__link">
                 Home
@@ -191,7 +193,9 @@ const totalPages = Math.ceil(sortedMovies.length / moviesPerPage);
           </div>
         </section>
       )}
-    </>
+      </div>
+      <Footer />
+    </div>
   );
 };
 
